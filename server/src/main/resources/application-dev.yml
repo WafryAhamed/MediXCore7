@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bchospital
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+
+web3j:
+  client-address: http://127.0.0.1:8545
+
+cors:
+  allowed-origins: http://localhost:5173

@@ -1,0 +1,43 @@
+src/app/App.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/app/Router.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Navbar.tsx(21,9): error TS6133: 'location' is declared but its value is never read.
+src/components/RecordDetailModal.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/Sidebar.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/components/Sidebar.tsx(1,27): error TS6133: 'Component' is declared but its value is never read.
+src/components/SkeletonLoader.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/StatCard.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/StatCard.tsx(3,1): error TS6133: 'BoxIcon' is declared but its value is never read.
+src/components/StatCard.tsx(5,9): error TS2749: 'BoxIcon' refers to a value, but is being used as a type here. Did you mean 'typeof BoxIcon'?
+src/index.tsx(2,1): error TS6133: 'React' is declared but its value is never read.
+src/lib/api/client.ts(5,24): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/api/client.ts(34,58): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/pages/AccessControl.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/AccessControl.tsx(10,3): error TS6133: 'UserIcon' is declared but its value is never read.
+src/pages/AddRecord.tsx(13,3): error TS6133: 'InfoIcon' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(14,3): error TS6133: 'DatabaseIcon' is declared but its value is never read.
+src/pages/AdminLogs.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/AdminTransactions.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/AdminUsers.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/AdminUsers.tsx(6,3): error TS6133: 'UsersIcon' is declared but its value is never read.
+src/pages/AdminUsers.tsx(8,3): error TS6133: 'MoreVerticalIcon' is declared but its value is never read.
+src/pages/AdminUsers.tsx(15,3): error TS6133: 'XIcon' is declared but its value is never read.
+src/pages/AuthPage.tsx(1,27): error TS6133: 'Component' is declared but its value is never read.
+src/pages/AuthPage.tsx(5,3): error TS6133: 'WalletIcon' is declared but its value is never read.
+src/pages/DoctorDashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/DoctorDashboard.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/DoctorDashboard.tsx(12,3): error TS6133: 'UserIcon' is declared but its value is never read.
+src/pages/DoctorPatients.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/DoctorPatients.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/DoctorPatients.tsx(5,3): error TS6133: 'FilterIcon' is declared but its value is never read.
+src/pages/DoctorPatients.tsx(8,3): error TS6133: 'StickyNoteIcon' is declared but its value is never read.
+src/pages/DoctorPatients.tsx(16,3): error TS6133: 'StatCardSkeleton' is declared but its value is never read.
+src/pages/DoctorRecords.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/DoctorRecords.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
+src/pages/LandingPage.tsx(1,1): error TS6192: All imports in import declaration are unused.
+src/pages/MedicalRecords.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/MedicalRecords.tsx(9,3): error TS6133: 'FileTextIcon' is declared but its value is never read.
+src/pages/MedicalRecords.tsx(13,3): error TS6133: 'ShieldCheckIcon' is declared but its value is never read.
+src/pages/PatientDashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/PatientDashboard.tsx(1,38): error TS6133: 'Children' is declared but its value is never read.
