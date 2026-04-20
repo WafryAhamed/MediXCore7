@@ -1,25 +1,22 @@
 package com.bchospital.modules.doctor.dto;
-
+import lombok.Builder;
 import lombok.Data;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
-
+import java.time.LocalDateTime;
 @Data
+@Builder
 public class DoctorResponse {
     private String id;
-    private String userId;
     private String employeeNumber;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String specialization;
+    private String userId;
+    private String specialty;
+    private List<String> qualifications;
+    private String licenseNumber;
     private BigDecimal consultationFee;
-    private Integer maxPatientsPerDay;
-    private List<String> availableDays;
-    private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private List<String> workingDays;
+    private String workingHoursStart;
+    private String workingHoursEnd;
+    private int maxPatientsPerDay;
+    private String bio;
 }

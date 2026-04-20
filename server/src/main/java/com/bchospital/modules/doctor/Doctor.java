@@ -22,41 +22,43 @@ import java.util.List;
 public class Doctor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @Column(name = "employee_number", nullable = false, unique = true)
     private String employeeNumber;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    private String specialty;
 
-    @Column(nullable = false)
-    private String email;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<String> qualifications;
 
-    private String phone;
-
-    @Column(nullable = false)
-    private String specialization;
+    @Column(name = "license_number", unique = true)
+    private String licenseNumber;
 
     @Column(name = "consultation_fee")
     private BigDecimal consultationFee;
 
-    @Column(name = "max_patients_per_day")
-    private Integer maxPatientsPerDay;
-
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "available_days_json")
-    private List<String> availableDays;
+    @Column(name = "working_days")
+    private List<String> workingDays;
 
-    @Column(nullable = false)
-    private String status;
+    @Column(name = "working_hours_start")
+    private String workingHoursStart;
+
+    @Column(name = "working_hours_end")
+    private String workingHoursEnd;
+
+    @Column(name = "max_patients_per_day")
+    @Builder.Default
+    private int maxPatientsPerDay = 20;
+
+    @Column(columnDefinition = "TEXT")
+    private String bio;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

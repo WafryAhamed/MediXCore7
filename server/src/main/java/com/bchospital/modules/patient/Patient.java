@@ -12,6 +12,7 @@ import org.hibernate.type.SqlTypes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -22,6 +23,7 @@ import java.util.Map;
 public class Patient {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -51,20 +53,33 @@ public class Patient {
     @Column(name = "blood_type")
     private String bloodType;
 
-    private String allergies; // Comma separated
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<String> allergies;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "emergency_contact_json")
     private Map<String, String> emergencyContact;
 
-    private String address;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "address_json")
+    private Map<String, String> address;
+    
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "insurance_info_json")
+    private Map<String, String> insuranceInfo;
 
     @Column(nullable = false)
     private String status;
+
+    @Column(name = "blockchain_tx_hash")
+    private String blockchainTxHash;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }

@@ -1,67 +1,57 @@
 package com.bchospital.modules.doctor;
-
 import com.bchospital.common.response.ApiResponse;
 import com.bchospital.common.response.PageResponse;
 import com.bchospital.modules.doctor.dto.DoctorCreateRequest;
 import com.bchospital.modules.doctor.dto.DoctorResponse;
 import com.bchospital.modules.doctor.dto.DoctorUpdateRequest;
+import com.bchospital.modules.doctor.dto.ScheduleUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/doctors")
 @RequiredArgsConstructor
-@Tag(name = "Doctors", description = "Doctor Management API")
+@Tag(name = "Doctors", description = "Doctor API")
 public class DoctorController {
 
     private final DoctorService doctorService;
 
     @GetMapping
-    @Operation(summary = "Get all doctors with pagination, search, and spec filter")
-    public ApiResponse<PageResponse<DoctorResponse>> getDoctors(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String search,
-            @RequestParam(required = false) String specialization) {
-        
-        PageResponse<DoctorResponse> doctors = doctorService.getDoctors(page, size, search, specialization);
-        return ApiResponse.success(doctors, "Doctors retrieved successfully");
+    public ApiResponse<PageResponse<DoctorResponse>> getDoctors(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String specialty) {
+        return ApiResponse.success(doctorService.getDoctors(page, size, specialty));
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get doctor by ID")
-    public ApiResponse<DoctorResponse> getDoctorById(@PathVariable String id) {
-        DoctorResponse doctor = doctorService.getDoctorById(id);
-        return ApiResponse.success(doctor, "Doctor retrieved successfully");
+    public ApiResponse<DoctorResponse> getDoctor(@PathVariable String id) {
+        return ApiResponse.success(doctorService.getDoctorById(id));
     }
 
     @PostMapping
-    @Operation(summary = "Register a new doctor")
     @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<DoctorResponse> createDoctor(@Valid @RequestBody DoctorCreateRequest request) {
-        DoctorResponse doctor = doctorService.createDoctor(request);
-        return ApiResponse.success(doctor, "Doctor created successfully");
+        return ApiResponse.success(doctorService.createDoctor(request));
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update doctor details")
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponse<DoctorResponse> updateDoctor(
-            @PathVariable String id,
-            @Valid @RequestBody DoctorUpdateRequest request) {
-        DoctorResponse doctor = doctorService.updateDoctor(id, request);
-        return ApiResponse.success(doctor, "Doctor updated successfully");
+    public ApiResponse<DoctorResponse> updateDoctor(@PathVariable String id, @RequestBody DoctorUpdateRequest request) {
+        return ApiResponse.success(doctorService.updateDoctor(id, request));
     }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Deactivate a doctor")
+    @GetMapping("/{id}/schedule")
+    public ApiResponse<ScheduleUpdateRequest> getSchedule(@PathVariable String id) {
+        return ApiResponse.success(doctorService.getSchedule(id));
+    }
+
+    @PutMapping("/{id}/schedule")
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponse<Void> deleteDoctor(@PathVariable String id) {
-        doctorService.deleteDoctor(id);
-        return ApiResponse.success(null, "Doctor deactivated successfully");
+    public ApiResponse<Void> updateSchedule(@PathVariable String id, @RequestBody ScheduleUpdateRequest request) {
+        doctorService.updateSchedule(id, request);
+        return ApiResponse.success(null, "Schedule updated");
     }
 }

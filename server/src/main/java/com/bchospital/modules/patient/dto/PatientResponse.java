@@ -1,14 +1,14 @@
 package com.bchospital.modules.patient.dto;
-
+import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
-
+import java.time.LocalDateTime;
 @Data
+@Builder
 public class PatientResponse {
     private String id;
-    private String userId; // Optional, might be null if no user account linked yet
     private String patientNumber;
     private String firstName;
     private String lastName;
@@ -17,10 +17,10 @@ public class PatientResponse {
     private LocalDate dateOfBirth;
     private String gender;
     private String bloodType;
-    private String allergies;
+    private List<String> allergies;
     private Map<String, String> emergencyContact;
-    private String address;
+    private Map<String, String> address;
+    private Map<String, String> insuranceInfo;
     private String status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String blockchainTxHash;
 }

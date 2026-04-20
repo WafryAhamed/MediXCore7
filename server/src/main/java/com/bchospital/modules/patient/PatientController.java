@@ -1,68 +1,65 @@
 package com.bchospital.modules.patient;
-
 import com.bchospital.common.response.ApiResponse;
 import com.bchospital.common.response.PageResponse;
 import com.bchospital.modules.patient.dto.PatientCreateRequest;
 import com.bchospital.modules.patient.dto.PatientResponse;
 import com.bchospital.modules.patient.dto.PatientUpdateRequest;
+import com.bchospital.modules.patient.dto.VitalRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/patients")
 @RequiredArgsConstructor
-@Tag(name = "Patients", description = "Patient Management API")
+@Tag(name = "Patients", description = "Patient API")
 public class PatientController {
-
+    
     private final PatientService patientService;
 
     @GetMapping
-    @Operation(summary = "Get all patients with pagination and search")
-    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'RECEPTIONIST')")
-    public ApiResponse<PageResponse<PatientResponse>> getPatients(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String search) {
-        
-        PageResponse<PatientResponse> patients = patientService.getPatients(page, size, search);
-        return ApiResponse.success(patients, "Patients retrieved successfully");
+    @PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST', 'DOCTOR')")
+    public ApiResponse<PageResponse<PatientResponse>> getPatients(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String search) {
+        return ApiResponse.success(patientService.getPatients(page, size, search));
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get patient by ID")
-    @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR', 'NURSE', 'RECEPTIONIST')")
-    public ApiResponse<PatientResponse> getPatientById(@PathVariable String id) {
-        PatientResponse patient = patientService.getPatientById(id);
-        return ApiResponse.success(patient, "Patient retrieved successfully");
+    public ApiResponse<PatientResponse> getPatient(@PathVariable String id) {
+        return ApiResponse.success(patientService.getPatientById(id));
     }
 
     @PostMapping
-    @Operation(summary = "Register a new patient")
     @PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST')")
     public ApiResponse<PatientResponse> createPatient(@Valid @RequestBody PatientCreateRequest request) {
-        PatientResponse patient = patientService.createPatient(request);
-        return ApiResponse.success(patient, "Patient created successfully");
+        return ApiResponse.success(patientService.createPatient(request));
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update patient records")
     @PreAuthorize("hasAnyRole('ADMIN', 'RECEPTIONIST')")
-    public ApiResponse<PatientResponse> updatePatient(
-            @PathVariable String id,
-            @Valid @RequestBody PatientUpdateRequest request) {
-        PatientResponse patient = patientService.updatePatient(id, request);
-        return ApiResponse.success(patient, "Patient updated successfully");
+    public ApiResponse<PatientResponse> updatePatient(@PathVariable String id, @Valid @RequestBody PatientUpdateRequest request) {
+        return ApiResponse.success(patientService.updatePatient(id, request));
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Soft delete / discharge a patient")
     @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<Void> deletePatient(@PathVariable String id) {
         patientService.deletePatient(id);
-        return ApiResponse.success(null, "Patient soft-deleted successfully");
+        return ApiResponse.success(null, "Deleted");
+    }
+
+    @PostMapping("/{id}/vitals")
+    @PreAuthorize("hasAnyRole('DOCTOR', 'NURSE')")
+    public ApiResponse<Vital> postVitals(@PathVariable String id, @RequestBody VitalRequest request, Authentication auth) {
+        return ApiResponse.success(patientService.recordVitals(id, request, auth.getName()));
+    }
+
+    @GetMapping("/{id}/vitals")
+    public ApiResponse<List<Vital>> getVitals(@PathVariable String id) {
+        return ApiResponse.success(patientService.getVitals(id));
     }
 }
